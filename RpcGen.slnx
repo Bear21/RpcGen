@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="RpcGen.Abstractions/RpcGen.Abstractions.csproj" />
+  <Project Path="RpcGen.RealTest/RpcGen.RealTest.csproj" />
+  <Project Path="RpcGen.SourceGenerator/RpcGen.SourceGenerator.Package/RpcGen.SourceGenerator.Package.csproj" />
+  <Project Path="RpcGen.SourceGenerator/RpcGen.SourceGenerator.Test/RpcGen.SourceGenerator.Test.csproj" />
+  <Project Path="RpcGen.SourceGenerator/RpcGen.SourceGenerator.Vsix/RpcGen.SourceGenerator.Vsix.csproj" />
+  <Project Path="RpcGen.SourceGenerator/RpcGen.SourceGenerator/RpcGen.SourceGenerator.csproj" />
+</Solution>
