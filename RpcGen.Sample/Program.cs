@@ -22,13 +22,15 @@ internal static class Program
       var response = await server.Welcome();
       server.ClientName = response.UserName;
 
+      var channels = await client.GetChannelList();
+      Console.WriteLine("Channels: " + string.Join(", ", channels));
       var generalChannel = await client.CreateChannel("general");
+      channels = await client.GetChannelList();
+      Console.WriteLine("Channels: " + string.Join(", ", channels));
 
       await client.JoinChannel(generalChannel);
       await client.SendMessage(generalChannel, "hello over mocked websocket");
       await client.SendMessage(generalChannel, "second message");
-      var channels = await client.GetChannelList();
-      Console.WriteLine("Channels: " + string.Join(", ", channels));
 
       await client.LeaveChannel(generalChannel);
 

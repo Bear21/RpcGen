@@ -60,7 +60,8 @@ internal static class RpcJson
    public static readonly JsonSerializerOptions DefaultOptions = new JsonSerializerOptions
    {
       PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-      WriteIndented = false
+      WriteIndented = true,
+      IncludeFields = true
    };
 }
 

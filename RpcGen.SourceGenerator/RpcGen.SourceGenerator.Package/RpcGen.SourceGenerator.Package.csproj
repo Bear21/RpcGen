@@ -10,14 +10,14 @@
   <PropertyGroup>
     <PackageId>RpcGen.SourceGenerator</PackageId>
     <PackageVersion>1.0.0.0</PackageVersion>
-    <Authors>Bear</Authors>
-    <PackageLicenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</PackageLicenseUrl>
-    <PackageProjectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</PackageProjectUrl>
+    <Authors>Bear21</Authors>
+    <PackageLicenseUrl>https://github.com/Bear21/RpcGen/blob/master/LICENSE.txt</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Bear21/RpcGen</PackageProjectUrl>
     <PackageIconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</PackageIconUrl>
-    <RepositoryUrl>http://REPOSITORY_URL_HERE_OR_DELETE_THIS_LINE</RepositoryUrl>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <RepositoryUrl>https://github.com/Bear21/RpcGen</RepositoryUrl>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Description>RpcGen.SourceGenerator</Description>
-    <PackageReleaseNotes>Summary of changes made in this release of the package.</PackageReleaseNotes>
+    <PackageReleaseNotes>Initial release.</PackageReleaseNotes>
     <Copyright>Copyright</Copyright>
     <PackageTags>RpcGen.SourceGenerator, analyzers</PackageTags>
     <DevelopmentDependency>true</DevelopmentDependency>
@@ -37,7 +37,6 @@
   <Target Name="_AddAnalyzersToOutput">
     <ItemGroup>
       <TfmSpecificPackageFile Include="$(OutputPath)\RpcGen.SourceGenerator.dll" PackagePath="analyzers/dotnet/cs" />
-      <TfmSpecificPackageFile Include="$(OutputPath)\RpcGen.SourceGenerator.CodeFixes.dll" PackagePath="analyzers/dotnet/cs" />
     </ItemGroup>
   </Target>
 
