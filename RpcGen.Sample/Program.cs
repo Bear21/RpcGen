@@ -9,7 +9,7 @@ internal static class Program
 {
    public static async Task Main()
    {
-      using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(2));
+      using var cts = new CancellationTokenSource();
 
       var (serverTransport, clientTransport) = MockWebSocketTransport.CreatePair();
 

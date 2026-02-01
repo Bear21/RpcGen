@@ -24,7 +24,7 @@ internal sealed class ServerApp : ServerAppRpcBaseClass
       if (!_channels.TryAdd(channelId, channel))
          throw new Exception("Unable to create channel, try again later");
 
-      Console.WriteLine($"[{ClientName}] created channel '{channel}' ({channelId})");
+      Console.WriteLine($"[{_serverName}] {ClientName} created channel '{channel}' ({channelId})");
       return Task.FromResult(channelId);
    }
 
@@ -38,10 +38,10 @@ internal sealed class ServerApp : ServerAppRpcBaseClass
    {
       if (_channels.TryGetValue(channel, out var channelName))
       {
-         Console.WriteLine($"[{_serverName}] client joined '{channelName}'");
+         Console.WriteLine($"[{_serverName}] client {ClientName} joined '{channelName}'");
 
          // Server -> client notification
-         ReceiveMessage(channel, "server", $"Welcome to '{channelName}'");
+         ReceiveMessage(channel, "server", $"Welcome to '{channelName}' {ClientName}");
          return Task.CompletedTask;
       }
       throw new InvalidOperationException($"Channel '{channel}' does not exist");
@@ -52,12 +52,12 @@ internal sealed class ServerApp : ServerAppRpcBaseClass
    {
       if (_channels.TryGetValue(channel, out var channelName))
       {
-         Console.WriteLine($"[{_serverName}] client left '{channelName}'");
+         Console.WriteLine($"[{_serverName}] client {ClientName} left '{channelName}'");
 
-         ReceiveMessage(channel, "server", $"Left '{channelName}'");
+         ReceiveMessage(channel, "server", $"{ClientName} Left '{channelName}'");
          return Task.CompletedTask;
       }
-      
+
       throw new InvalidOperationException($"Channel '{channel}' does not exist");
    }
 

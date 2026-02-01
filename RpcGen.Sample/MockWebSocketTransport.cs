@@ -1,17 +1,23 @@
 #nullable enable
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 
 namespace RpcGen.Sample;
 
 internal sealed class MockWebSocketTransport : IRpcTransport
 {
-    private readonly ConcurrentQueue<ReadOnlyMemory<byte>> _inbound = new();
-    private readonly SemaphoreSlim _signal = new(0);
+    private readonly Channel<ReadOnlyMemory<byte>> _inbound = Channel.CreateUnbounded<ReadOnlyMemory<byte>>(
+        new UnboundedChannelOptions
+        {
+            SingleReader = false,
+            SingleWriter = false,
+            AllowSynchronousContinuations = false
+        });
+
     private volatile bool _completed;
 
     public MockWebSocketTransport? Peer { get; private set; }
@@ -30,26 +36,19 @@ internal sealed class MockWebSocketTransport : IRpcTransport
         if (Peer is null) throw new InvalidOperationException("Transport is not paired.");
         if (Peer._completed) return Task.CompletedTask;
 
-        Peer._inbound.Enqueue(data);
-        Peer._signal.Release();
-        return Task.CompletedTask;
+        return Peer._inbound.Writer.WriteAsync(data, cancellationToken).AsTask();
     }
 
     public async IAsyncEnumerable<ReadOnlyMemory<byte>> ReadAsync(
         [EnumeratorCancellation] CancellationToken cancellationToken)
     {
-        while (!cancellationToken.IsCancellationRequested && !_completed)
-        {
-            await _signal.WaitAsync(cancellationToken).ConfigureAwait(false);
-
-            while (_inbound.TryDequeue(out var msg))
-                yield return msg;
-        }
+        await foreach (var msg in _inbound.Reader.ReadAllAsync(cancellationToken).ConfigureAwait(false))
+            yield return msg;
     }
 
     public void Complete()
     {
         _completed = true;
-        _signal.Release();
+        _inbound.Writer.TryComplete();
     }
 }

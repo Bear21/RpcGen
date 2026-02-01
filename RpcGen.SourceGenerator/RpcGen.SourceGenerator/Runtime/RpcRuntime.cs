@@ -119,21 +119,26 @@ internal sealed class RpcCore
             continue;
          }
 
-         try
-         {
-            var handled = Handler is not null
-                ? await Handler(id, iface, method, payload, ct).ConfigureAwait(false)
-                : false;
+         _ = ExecuteRequestAsync(transport, id, method, iface, payload, ct).ConfigureAwait(false);
+      }
+   }
 
-            if (!handled)
-            {
-               await SendErrorAsync(transport, id, $"Unknown inbound method '{method}'", iface).ConfigureAwait(false);
-            }
-         }
-         catch (Exception ex)
+   private async Task ExecuteRequestAsync(IRpcTransport transport, long id, string method, string iface, JsonElement payload, CancellationToken ct)
+   {
+      try
+      {
+         var handled = Handler is not null
+             ? await Handler(id, iface, method, payload, ct).ConfigureAwait(false)
+             : false;
+
+         if (!handled)
          {
-            await SendErrorAsync(transport, id, ex.Message, iface).ConfigureAwait(false);
+            await SendErrorAsync(transport, id, $"Unknown inbound method '{method}'", iface).ConfigureAwait(false);
          }
+      }
+      catch (Exception ex)
+      {
+         await SendErrorAsync(transport, id, ex.Message, iface).ConfigureAwait(false);
       }
    }
 
