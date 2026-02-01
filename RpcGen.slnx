@@ -1,6 +1,8 @@
 <Solution>
-  <Project Path="RpcGen.Abstractions/RpcGen.Abstractions.csproj" />
-  <Project Path="RpcGen.RealTest/RpcGen.RealTest.csproj" />
+  <Folder Name="/Solution Items/">
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="RpcGen.Sample/RpcGen.Sample.csproj" />
   <Project Path="RpcGen.SourceGenerator/RpcGen.SourceGenerator.Package/RpcGen.SourceGenerator.Package.csproj" />
   <Project Path="RpcGen.SourceGenerator/RpcGen.SourceGenerator.Test/RpcGen.SourceGenerator.Test.csproj" />
   <Project Path="RpcGen.SourceGenerator/RpcGen.SourceGenerator.Vsix/RpcGen.SourceGenerator.Vsix.csproj" />

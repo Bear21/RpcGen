@@ -36,28 +36,23 @@ namespace RpcGen.Sample
 
     public interface IServerRpcInterface
     {
-        [ServerToClient]
         Task<AppVersion> Welcome();
 
-        [ServerToClient]
         void ReceiveMessage(string channel, string user, string message);
     }
 
     public interface IClientRpcInterface
     {
-        [ClientToServer]
         Task SendMessage(string channel, string message);
-        [ClientToServer]
         Task JoinChannel(string channel);
-        [ClientToServer]
         Task LeaveChannel(string channel);
     }
 
     [RpcInterface(typeof(IServerRpcInterface), typeof(IClientRpcInterface))]
-    internal abstract partial class ServerAppRpcBaseClass { }
+    internal abstract partial class ServerAppRpcBaseClass : IServerRpcInterface { }
 
     [RpcInterface(typeof(IClientRpcInterface), typeof(IServerRpcInterface))]
-    internal abstract partial class ClientAppRpcBaseClass { }
+    internal abstract partial class ClientAppRpcBaseClass : IClientRpcInterface { }
 }
 """
                     },
@@ -70,37 +65,11 @@ namespace RpcGen.Sample
             TestBehaviors = TestBehaviors.SkipGeneratedSourcesCheck,
 
          };
-         test.TestState.AdditionalReferences.Add(
-             MetadataReference.CreateFromFile(typeof(RpcGen.ServerToClientAttribute).Assembly.Location)
-         );
+         //test.TestState.AdditionalReferences.Add(
+         //    MetadataReference.CreateFromFile(typeof(RpcGen.RpcInterfaceAttribute).Assembly.Location)
+         //);
 
-         try
-         {
-            foreach (var src in test.TestState.Sources)
-            {
-               Console.WriteLine("===== Source =====");
-               Console.WriteLine(src.content.ToString());
-            }
-
-            await test.RunAsync();
-         }
-         catch (Exception ex)
-         {
-            Console.WriteLine("Diagnostics:");
-            foreach (var d in test.TestState.ExpectedDiagnostics)
-               Console.WriteLine(d.ToString());
-            foreach (var generated in test.TestState.GeneratedSources)
-            {
-               Console.WriteLine($"===== {generated.filename} =====");
-               Console.WriteLine(generated.content.ToString());
-            }
-            Assert.Fail($"Source generator test failed: {ex}");
-         }
-         foreach (var generated in test.TestState.GeneratedSources)
-         {
-            Console.WriteLine($"===== {generated.filename} =====");
-            Console.WriteLine(generated.content.ToString());
-         }
+         await test.RunAsync();
       }
    }
 }
