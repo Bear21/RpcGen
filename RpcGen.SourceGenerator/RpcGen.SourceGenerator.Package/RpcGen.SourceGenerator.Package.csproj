@@ -1,43 +1,46 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <IncludeBuildOutput>false</IncludeBuildOutput>
-    <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<IncludeBuildOutput>false</IncludeBuildOutput>
+		<SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <PackageId>RpcGen.SourceGenerator</PackageId>
-    <PackageVersion>1.0.0.0-rc2</PackageVersion>
-    <Authors>Bear21</Authors>
-    <PackageLicenseUrl>https://github.com/Bear21/RpcGen/blob/master/LICENSE.txt</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/Bear21/RpcGen</PackageProjectUrl>
-    <PackageIconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</PackageIconUrl>
-    <RepositoryUrl>https://github.com/Bear21/RpcGen</RepositoryUrl>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Description>RpcGen.SourceGenerator</Description>
-    <PackageReleaseNotes>Initial release.</PackageReleaseNotes>
-    <Copyright>Copyright</Copyright>
-    <PackageTags>RpcGen.SourceGenerator, analyzers</PackageTags>
-    <DevelopmentDependency>true</DevelopmentDependency>
-    <NoPackageAnalysis>true</NoPackageAnalysis>
+	<PropertyGroup>
+		<PackageId>RpcGen.SourceGenerator</PackageId>
+		<PackageVersion>1.0.0.0-rc2</PackageVersion>
+		<Authors>Bear21</Authors>
+		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+		<PackageProjectUrl>https://github.com/Bear21/RpcGen</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/Bear21/RpcGen</RepositoryUrl>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<Description>RpcGen.SourceGenerator</Description>
+		<PackageReleaseNotes>Initial release.</PackageReleaseNotes>
+		<Copyright>Copyright</Copyright>
+		<PackageTags>RpcGen.SourceGenerator, analyzers</PackageTags>
+		<DevelopmentDependency>true</DevelopmentDependency>
+		<NoPackageAnalysis>true</NoPackageAnalysis>
 
-    <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_AddAnalyzersToOutput</TargetsForTfmSpecificContentInPackage>
-  </PropertyGroup>
+		<TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_AddAnalyzersToOutput</TargetsForTfmSpecificContentInPackage>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\RpcGen.SourceGenerator\RpcGen.SourceGenerator.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\RpcGen.SourceGenerator\RpcGen.SourceGenerator.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="tools\*.ps1" CopyToOutputDirectory="PreserveNewest" Pack="true" PackagePath="" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Update="tools\*.ps1" CopyToOutputDirectory="PreserveNewest" Pack="true" PackagePath="" />
+	</ItemGroup>
 
-  <Target Name="_AddAnalyzersToOutput">
-    <ItemGroup>
-      <TfmSpecificPackageFile Include="$(OutputPath)\RpcGen.SourceGenerator.dll" PackagePath="analyzers/dotnet/cs" />
-    </ItemGroup>
-  </Target>
+	<ItemGroup>
+		<None Include="..\..\LICENSE.txt" CopyToOutputDirectory="PreserveNewest" Pack="true" PackagePath="" />
+	</ItemGroup>
+
+	<Target Name="_AddAnalyzersToOutput">
+		<ItemGroup>
+			<TfmSpecificPackageFile Include="$(OutputPath)\RpcGen.SourceGenerator.dll" PackagePath="analyzers/dotnet/cs" />
+		</ItemGroup>
+	</Target>
 
 </Project>

@@ -9,13 +9,12 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace RpcGen
+namespace RpcGen;
+
+[AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
+internal sealed class RpcInterfaceAttribute : Attribute
 {
-   [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
-   public sealed class RpcInterfaceAttribute : Attribute
-   {
-      public RpcInterfaceAttribute(Type outbound, Type inbound) { }
-   }
+   public RpcInterfaceAttribute(Type outbound, Type inbound) { }
 }
 
 internal interface IRpcTransport

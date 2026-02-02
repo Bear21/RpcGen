@@ -136,12 +136,13 @@ namespace RpcGen.SourceGenerator
          sb.AppendLine("using System.Text.Json;");
          sb.AppendLine("using System.Threading;");
          sb.AppendLine("using System.Threading.Tasks;");
+         sb.AppendLine("using RpcGen;");
          sb.AppendLine();
 
          var className = classSymbol.Name;
 
          // Start partial class body
-         sb.AppendLine($"internal partial class {className}");
+         sb.AppendLine($"internal abstract partial class {className}");
          sb.AppendLine("{");
          sb.AppendLine("    private IRpcTransport? _rpcTransport;");
          sb.AppendLine("    private RpcCore? _rpc = null;");
