@@ -9,7 +9,7 @@
 
 	<PropertyGroup>
 		<PackageId>RpcGen.SourceGenerator</PackageId>
-		<PackageVersion>1.0.0.0-rc2</PackageVersion>
+		<PackageVersion>1.0.0.0-rc5</PackageVersion>
 		<Authors>Bear21</Authors>
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 		<PackageProjectUrl>https://github.com/Bear21/RpcGen</PackageProjectUrl>

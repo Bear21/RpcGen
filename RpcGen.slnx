@@ -2,6 +2,7 @@
   <Folder Name="/Solution Items/">
     <File Path="README.md" />
   </Folder>
+  <Project Path="RpcGen.Runtime/RpcGen.Runtime.csproj" Id="296e2b40-ad31-4ec2-9e03-7938207c7fb6" />
   <Project Path="RpcGen.Sample/RpcGen.Sample.csproj" />
   <Project Path="RpcGen.SourceGenerator/RpcGen.SourceGenerator.Package/RpcGen.SourceGenerator.Package.csproj" />
   <Project Path="RpcGen.SourceGenerator/RpcGen.SourceGenerator.Test/RpcGen.SourceGenerator.Test.csproj" />

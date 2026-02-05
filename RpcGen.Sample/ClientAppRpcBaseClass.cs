@@ -5,5 +5,5 @@
 
 
    [RpcInterface(typeof(IClientRpcInterface), typeof(IServerRpcInterface))]
-   internal abstract partial class ClientAppRpcBaseClass : IClientRpcInterface { }
+   public abstract partial class ClientAppRpcBaseClass { }
 }

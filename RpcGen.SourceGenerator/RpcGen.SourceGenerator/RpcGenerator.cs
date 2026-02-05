@@ -16,13 +16,6 @@ namespace RpcGen.SourceGenerator
    {
       public void Initialize(IncrementalGeneratorInitializationContext context)
       {
-         // Emit runtime once
-         context.RegisterPostInitializationOutput(ctx =>
-         {
-            ctx.AddSource("RpcRuntime.g.cs", SourceText.From(LoadEmbeddedResourceText("Runtime.RpcRuntime.cs"), Encoding.UTF8));
-            // Attributes live in RpcGen.Abstractions (not emitted here).
-         });
-
          // Pick class decls with attributes
          var classWithAttrs = context.SyntaxProvider.CreateSyntaxProvider(
              predicate: static (node, _) => node is ClassDeclarationSyntax cds && cds.AttributeLists.Count > 0,
@@ -81,27 +74,7 @@ namespace RpcGen.SourceGenerator
          });
       }
 
-      private static string LoadEmbeddedResourceText(string resourceSuffix)
-      {
-         var asm = typeof(RpcGenerator).GetTypeInfo().Assembly;
-
-         var resourceName = asm
-            .GetManifestResourceNames()
-            .FirstOrDefault(n => n.EndsWith(resourceSuffix, StringComparison.Ordinal));
-
-         if (resourceName is null)
-         {
-            throw new InvalidOperationException(
-               $"Embedded resource '{resourceSuffix}' was not found. Available: {string.Join(", ", asm.GetManifestResourceNames())}");
-         }
-
-         using var stream = asm.GetManifestResourceStream(resourceName);
-         if (stream is null)
-            throw new InvalidOperationException($"Failed to open embedded resource stream '{resourceName}'.");
-
-         using var reader = new StreamReader(stream, Encoding.UTF8, detectEncodingFromByteOrderMarks: true, bufferSize: 4096, leaveOpen: false);
-         return reader.ReadToEnd();
-      }
+      
 
       private static void GenerateForClass(SourceProductionContext spc, RpcClassCandidate candidate)
       {
@@ -137,12 +110,15 @@ namespace RpcGen.SourceGenerator
          sb.AppendLine("using System.Threading;");
          sb.AppendLine("using System.Threading.Tasks;");
          sb.AppendLine("using RpcGen;");
+         sb.AppendLine("");
+         sb.AppendLine("#pragma warning disable CS8618");
+         sb.AppendLine("#pragma warning disable CS8602");
          sb.AppendLine();
 
          var className = classSymbol.Name;
 
          // Start partial class body
-         sb.AppendLine($"internal abstract partial class {className}");
+         sb.AppendLine($"public abstract partial class {className}");
          sb.AppendLine("{");
          sb.AppendLine("    private IRpcTransport? _rpcTransport;");
          sb.AppendLine("    private RpcCore? _rpc = null;");

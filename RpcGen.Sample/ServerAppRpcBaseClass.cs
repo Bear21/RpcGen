@@ -2,6 +2,6 @@
 
 namespace RpcGen.Sample
 {
-   [RpcInterface(typeof(IServerRpcInterface), typeof(IClientRpcInterface))]
-   internal abstract partial class ServerAppRpcBaseClass : IServerRpcInterface { }
+   [RpcGen.RpcInterface(typeof(IServerRpcInterface), typeof(IClientRpcInterface))]
+   public abstract partial class ServerAppRpcBaseClass : IServerRpcInterface { }
 }

@@ -49,10 +49,10 @@ namespace RpcConsumer.Sample
     }
 
     [RpcInterface(typeof(IServerRpcInterface), typeof(IClientRpcInterface))]
-    internal abstract partial class ServerAppRpcBaseClass : IServerRpcInterface { }
+    public abstract partial class ServerAppRpcBaseClass { }
 
     [RpcInterface(typeof(IClientRpcInterface), typeof(IServerRpcInterface))]
-    internal abstract partial class ClientAppRpcBaseClass : IClientRpcInterface { }
+    public abstract partial class ClientAppRpcBaseClass { }
 }
 """
                     },
@@ -65,11 +65,11 @@ namespace RpcConsumer.Sample
             TestBehaviors = TestBehaviors.SkipGeneratedSourcesCheck,
 
          };
-         //test.TestState.AdditionalReferences.Add(
-         //    MetadataReference.CreateFromFile(typeof(RpcGen.RpcInterfaceAttribute).Assembly.Location)
-         //);
+            test.TestState.AdditionalReferences.Add(
+             MetadataReference.CreateFromFile(typeof(RpcGen.RpcInterfaceAttribute).Assembly.Location)
+         );
 
-         await test.RunAsync();
+            await test.RunAsync();
       }
    }
 }

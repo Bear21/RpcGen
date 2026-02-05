@@ -28,12 +28,4 @@
 		<EmbeddedResource Update="Resources.resx" Generator="ResXFileCodeGenerator" LastGenOutput="Resources.Designer.cs" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(Configuration)'!='RpcRuntimeView'">
-		<!-- Compile the RpcRuntime file on RpcRuntimeView to make it easier develop it -->
-		<Compile Remove="Runtime\RpcRuntime.cs" />
-	</ItemGroup>
-	<ItemGroup>
-		<EmbeddedResource Include="Runtime\RpcRuntime.cs" />
-	</ItemGroup>
-
 </Project>

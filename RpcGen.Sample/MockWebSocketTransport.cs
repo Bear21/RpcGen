@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RpcGen.Sample;
 
-internal sealed class MockWebSocketTransport : IRpcTransport
+public sealed class MockWebSocketTransport : IRpcTransport
 {
     private readonly Channel<ReadOnlyMemory<byte>> _inbound = Channel.CreateUnbounded<ReadOnlyMemory<byte>>(
         new UnboundedChannelOptions
